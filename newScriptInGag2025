@@ -73,4 +73,5 @@ spawn(function()
     loadingGui:Destroy() -- Remove UI
 
     -- Load real game script
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Gey123123/roblox-script123/refs/heads/main/script"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Gey123123/script_gag1/refs/heads/main/growagardennewscript2025"))()
+end)
